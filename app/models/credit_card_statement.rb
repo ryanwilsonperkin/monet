@@ -6,6 +6,18 @@ class CreditCardStatement < ApplicationRecord
 
   after_create :create_transactions!
 
+  def start
+    transactions.minimum(:date)
+  end
+
+  def end
+    transactions.maximum(:date)
+  end
+
+  def spent
+    transactions.sum(:debit)
+  end
+
   def csv_content
     @csv_content ||= CSVContent.new(content)
   end

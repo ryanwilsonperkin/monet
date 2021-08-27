@@ -1,5 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<p><strong>From:</strong> <%= @credit_card_statement.start %></p>
+
+<p><strong>To:</strong> <%= @credit_card_statement.end %></p>
+
+<p><strong>Spent:</strong> <%= number_to_currency(@credit_card_statement.spent) %></p>
+
 <p><strong>Content:</strong></p>
 <table>
   <thead>
