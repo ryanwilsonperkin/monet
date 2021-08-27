@@ -6,25 +6,16 @@
 
 <p><strong>Spent:</strong> <%= number_to_currency(@credit_card_statement.spent) %></p>
 
-<p><strong>Content:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <% @credit_card_statement.csv_content.headers.each do |header| %>
-        <th><%= header.capitalize %></th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% @credit_card_statement.csv_content.each do |row| %>
-      <tr>
-        <% row.each do |value| %>
-          <td><%= value %></th>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'transactions/transactions', transactions: @credit_card_statement.transactions %>
+
+<details>
+<summary>Raw content</summary>
+<textarea readonly cols="50" rows="20">
+  <%= @credit_card_statement.content %>
+</textarea>
+</details>
+
+<br />
 
 <%= link_to 'Edit', edit_credit_card_statement_path(@credit_card_statement) %> |
 <%= link_to 'Back', credit_card_statements_path %>
