@@ -16,7 +16,7 @@
         <td><%= credit_card_statement.content.truncate(50) %></td>
         <td><%= link_to 'Show', credit_card_statement %></td>
         <td>
-          <%= form_with url: credit_card_statement, method: :delete do |form| %>
+          <%= form_for credit_card_statement, method: :delete, html: { onsubmit: "return window.confirm('Are you sure?');" } do |form| %>
             <%= form.submit 'Destroy' %>
           <% end %>
         </td>
