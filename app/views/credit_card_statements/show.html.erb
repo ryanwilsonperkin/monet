@@ -22,7 +22,7 @@
   <tbody>
     <% @credit_card_statement.csv_content.each do |row| %>
       <tr>
-        <% row.each do |key, value| %>
+        <% row.each do |value| %>
           <td><%= value %></th>
         <% end %>
       </tr>

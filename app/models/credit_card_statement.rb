@@ -13,18 +13,52 @@ class CreditCardStatement < ApplicationRecord
   class CSVContent
     include Enumerable
 
-    delegate :each, to: :parsed_content
+    HEADERS = %w[date description debit credit balance]
 
     def initialize(raw_content)
       @raw_content = raw_content
     end
 
     def headers
-      %w[date transaction debit credit balance]
+      HEADERS
+    end
+
+    def each
+      parsed_content.each do |row|
+        yield CSVContentRow.new(row)
+      end
     end
 
     def parsed_content
       CSV.parse(@raw_content, headers: headers)
+    end
+
+    class CSVContentRow
+      include Enumerable
+
+      def initialize(csv_row)
+        @csv_row = csv_row
+      end
+
+      def each
+        CSVContent::HEADERS.each do |header|
+          yield send(header)
+        end
+      end
+
+      def date
+        # Account statement CSVs stupidly use MM/DD/YYYY format
+        Date.strptime(@csv_row["date"], "%m/%d/%Y")
+      end
+
+      def method_missing(m)
+        key = m.to_s
+        if @csv_row.has_key?(key)
+          @csv_row[key]
+        else
+          super
+        end
+      end
     end
   end
 end
