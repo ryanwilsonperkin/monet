@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :transactions
-  resources :credit_card_statements
+  resources :transactions, except: [:edit, :update]
+  resources :credit_card_statements, except: [:edit, :update]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
