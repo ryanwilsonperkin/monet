@@ -20,7 +20,11 @@
         <td><%= credit_card_statement.month %></td>
         <td><%= link_to 'Show', credit_card_statement %></td>
         <td><%= link_to 'Edit', edit_credit_card_statement_path(credit_card_statement) %></td>
-        <td><%= link_to 'Destroy', credit_card_statement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= form_with url: credit_card_statement, method: :delete do |form| %>
+            <%= form.submit 'Destroy' %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
