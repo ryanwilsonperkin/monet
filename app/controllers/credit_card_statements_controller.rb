@@ -12,7 +12,7 @@ class CreditCardStatementsController < ApplicationController
 
   # GET /credit_card_statements/new
   def new
-    @credit_card_statement = CreditCardStatement.new
+    @credit_card_statement = CreditCardStatement.new(year: Time.zone.now.year)
   end
 
   # GET /credit_card_statements/1/edit
