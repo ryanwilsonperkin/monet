@@ -1,0 +1,2 @@
+class CreditCardStatement < ApplicationRecord
+end
