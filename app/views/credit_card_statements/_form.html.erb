@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :month %>
-    <%= form.number_field :month %>
+    <%= form.select :month, (1..12).map { |id| [Date::MONTHNAMES[id], id] } %>
   </div>
 
   <div class="actions">
