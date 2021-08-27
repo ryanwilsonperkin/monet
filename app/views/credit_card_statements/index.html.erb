@@ -15,7 +15,7 @@
   <tbody>
     <% @credit_card_statements.each do |credit_card_statement| %>
       <tr>
-        <td><%= credit_card_statement.content %></td>
+        <td><%= credit_card_statement.content.truncate(50) %></td>
         <td><%= credit_card_statement.year %></td>
         <td><%= credit_card_statement.month %></td>
         <td><%= link_to 'Show', credit_card_statement %></td>
