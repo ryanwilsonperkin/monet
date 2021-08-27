@@ -12,7 +12,7 @@ class CreditCardStatementsController < ApplicationController
 
   # GET /credit_card_statements/new
   def new
-    @credit_card_statement = CreditCardStatement.new(year: Time.zone.now.year)
+    @credit_card_statement = CreditCardStatement.new
   end
 
   # GET /credit_card_statements/1/edit
@@ -21,9 +21,7 @@ class CreditCardStatementsController < ApplicationController
 
   # POST /credit_card_statements or /credit_card_statements.json
   def create
-    content_file = params.require(:credit_card_statement).require(:content_file)
     @credit_card_statement = CreditCardStatement.new(credit_card_statement_params)
-    @credit_card_statement.content = content_file.read
 
     respond_to do |format|
       if @credit_card_statement.save
@@ -66,6 +64,7 @@ class CreditCardStatementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def credit_card_statement_params
-      params.require(:credit_card_statement).permit(:content, :year, :month)
+      content_file = params.require(:credit_card_statement).require(:content_file)
+      { content: content_file.read }
     end
 end

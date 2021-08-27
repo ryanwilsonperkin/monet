@@ -6,8 +6,6 @@
   <thead>
     <tr>
       <th>Content</th>
-      <th>Year</th>
-      <th>Month</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,8 +14,6 @@
     <% @credit_card_statements.each do |credit_card_statement| %>
       <tr>
         <td><%= credit_card_statement.content.truncate(50) %></td>
-        <td><%= credit_card_statement.year %></td>
-        <td><%= credit_card_statement.month %></td>
         <td><%= link_to 'Show', credit_card_statement %></td>
         <td><%= link_to 'Edit', edit_credit_card_statement_path(credit_card_statement) %></td>
         <td>
