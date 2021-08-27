@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_27_190602) do
+ActiveRecord::Schema.define(version: 2021_08_27_203622) do
 
   create_table "credit_card_statements", force: :cascade do |t|
     t.text "content", null: false
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 2021_08_27_190602) do
     t.integer "credit_card_statement_id", null: false
     t.date "date", null: false
     t.string "description", null: false
-    t.float "debit"
-    t.float "credit"
-    t.float "balance", null: false
+    t.decimal "debit"
+    t.decimal "credit"
+    t.decimal "balance", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["credit_card_statement_id"], name: "index_transactions_on_credit_card_statement_id"
