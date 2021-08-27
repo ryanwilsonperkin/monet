@@ -17,17 +17,17 @@
 
 <p>
   <strong>Debit:</strong>
-  <%= @transaction.debit %>
+  <%= number_to_currency(@transaction.debit) %>
 </p>
 
 <p>
   <strong>Credit:</strong>
-  <%= @transaction.credit %>
+  <%= number_to_currency(@transaction.credit) %>
 </p>
 
 <p>
   <strong>Balance:</strong>
-  <%= @transaction.balance %>
+  <%= number_to_currency(@transaction.balance) %>
 </p>
 
 <%= link_to 'Edit', edit_transaction_path(@transaction) %> |
