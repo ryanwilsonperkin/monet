@@ -21,7 +21,9 @@ class CreditCardStatementsController < ApplicationController
 
   # POST /credit_card_statements or /credit_card_statements.json
   def create
+    content_file = params.require(:credit_card_statement).require(:content_file)
     @credit_card_statement = CreditCardStatement.new(credit_card_statement_params)
+    @credit_card_statement.content = content_file.read
 
     respond_to do |format|
       if @credit_card_statement.save
