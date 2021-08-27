@@ -18,7 +18,7 @@
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
-        <td><%= transaction.credit_card_statement_id %></td>
+        <td><%= link_to transaction.credit_card_statement_id, transaction.credit_card_statement %></td>
         <td><%= transaction.date %></td>
         <td><%= transaction.description %></td>
         <td><%= transaction.debit %></td>
