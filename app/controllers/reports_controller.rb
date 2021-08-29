@@ -20,11 +20,11 @@ class ReportsController < ApplicationController
       end
 
       def cx
-        chart.plot_width / chart.date_range.count * date.day
+        chart.x_step_size * date.day
       end
 
       def cy
-        chart.plot_height - (chart.plot_height / chart.max * amount)
+        chart.plot_height - (chart.y_step_size * amount)
       end
     end
 
@@ -58,10 +58,22 @@ class ReportsController < ApplicationController
       points.map(&:amount).max
     end
 
+    def x_steps
+      date_range.count
+    end
+
+    def x_step_size
+      plot_width / x_steps
+    end
+
+    def y_step_size
+      plot_height / max
+    end
+
     def x_labels
       date_range.step(8).map do |date|
         Label.new(
-          x_padding + (plot_width / date_range.count) * date.day,
+          x_padding + x_step_size * date.day,
           height,
           date.day,
         )
@@ -71,8 +83,8 @@ class ReportsController < ApplicationController
     def y_labels
       [0, max/2, max].map do |amount|
         Label.new(
-          x_padding - 10,
-          height - amount / max * plot_height - y_padding,
+          x_padding,
+          height - y_padding - (amount * y_step_size),
           number_to_currency(amount),
         )
       end
