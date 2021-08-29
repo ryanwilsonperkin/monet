@@ -1,19 +1,19 @@
 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="graph" aria-labelledby="title" role="img" height="<%= @chart.height %>" width="<%= @chart.width %>">
   <g class="labels x-labels">
     <%= @chart.date_range.step(8) do |date| %>
-      <text x="<%= @chart.padding + (@chart.plot_width / @chart.date_range.count) * date.day %>" y="<%= @chart.height %>"><%= date.day %></text>
+      <text x="<%= @chart.x_padding + (@chart.plot_width / @chart.date_range.count) * date.day %>" y="<%= @chart.height %>"><%= date.day %></text>
     <% end %>
   </g>
   <g class="labels y-labels">
-    <text x="0" y="<%= @chart.height - @chart.padding %>">$0</text>
+    <text x="0" y="<%= @chart.height - @chart.y_padding %>">$0</text>
     <%= (1..3).map do |x| %>
       <text
         x="0"
-        y="<%= @chart.height - (x * @chart.plot_height / 3) - @chart.padding %>"
+        y="<%= @chart.height - (x * @chart.plot_height / 3) - @chart.y_padding %>"
       ><%= number_to_currency(x * @chart.max / 3) %></text>
     <% end %>
   </g>
-  <svg class="plot" x="<%= @chart.padding %>" y="<%= @chart.padding %>" width="<%= @chart.plot_width %>" height="<%= @chart.plot_height %>">
+  <svg class="plot" x="<%= @chart.x_padding %>" y="<%= @chart.y_padding %>" width="<%= @chart.plot_width %>" height="<%= @chart.plot_height %>">
     <g class="grid x-grid" id="xGrid">
       <line
         x1="<%= @chart.horizontal_line.x1 %>"

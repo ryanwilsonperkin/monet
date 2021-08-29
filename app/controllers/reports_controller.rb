@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   rescue_from InvalidParam, with: :redirect_to_index
 
   class Chart
-    attr_reader :height, :width, :padding, :date_range, :points
+    attr_reader :height, :width, :x_padding, :y_padding, :date_range, :points
 
     Line = Struct.new(:x1, :x2, :y1, :y2, :colour)
     Point = Struct.new(:date, :amount)
@@ -11,17 +11,18 @@ class ReportsController < ApplicationController
     def initialize(date_range, points)
       @height = 500
       @width = 800
-      @padding = 80
+      @x_padding = 80
+      @y_padding = 20
       @date_range = date_range
       @points = points.map { |x, y| Point.new(x, y) }
     end
 
     def plot_height
-      height - 2 * @padding
+      height - 2 * y_padding
     end
 
     def plot_width
-      width - 2 * @padding
+      width - 2 * x_padding
     end
 
     def horizontal_line
