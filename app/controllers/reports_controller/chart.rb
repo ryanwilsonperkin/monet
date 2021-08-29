@@ -16,14 +16,14 @@ class ReportsController
       end
       
       def cx
-        chart.x_step_size * date.day
+        chart.x_step_size * chart.date_range.find_index(date)
       end
       
       def cy
         chart.plot_height - (chart.y_step_size * amount)
       end
     end
-    
+
     attr_reader :title, :height, :width, :x_padding, :y_padding, :date_range, :points
 
     def initialize(title, date_range, points)
@@ -61,11 +61,11 @@ class ReportsController
     end
 
     def x_step_size
-      plot_width / x_steps
+      plot_width.to_f / x_steps
     end
 
     def y_step_size
-      plot_height / max
+      plot_height.to_f / max
     end
 
     def x_labels
