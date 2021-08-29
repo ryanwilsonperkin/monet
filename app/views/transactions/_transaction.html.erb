@@ -1,6 +1,14 @@
 <tr>
   <td><%= transaction.date %></td>
-  <td><span title="<%= transaction.description %>"><%= transaction.vendor_name || transaction.description %></span></td>
+  <td>
+    <% if transaction.vendor_name %>
+      <%= link_to transaction.vendor do %>
+        <span title="<%= transaction.description %>"><%= transaction.vendor_name %></span>
+      <% end %>
+    <% else %>
+      <%= transaction.description %>
+    <% end %>
+  </td>
   <td style="text-align:right"><%= number_to_currency(transaction.debit) %></td>
   <td style="text-align:right"><%= number_to_currency(transaction.credit) %></td>
   <td style="text-align:right"><%= number_to_currency(transaction.balance) %></td>
