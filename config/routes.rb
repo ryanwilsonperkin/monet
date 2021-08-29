@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'reports#index'
   namespace :reports do
+    get 'monthly'
   end
   resources :vendors
   resources :transactions, except: [:new, :create, :delete] do
