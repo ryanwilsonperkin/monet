@@ -18,8 +18,8 @@
     ></line>
   </g>
   <g class="labels x-labels">
-    <%= @chart.date_range.each do |date| %>
-      <text x="<%= 75 + date.day * 20 %>" y="<%= @chart.height %>"><%= date.day %></text>
+    <%= @chart.date_range.step(8) do |date| %>
+      <text x="<%= @chart.padding + (@chart.plot_width / @chart.date_range.count) * date.day %>" y="<%= @chart.height %>"><%= date.day %></text>
     <% end %>
   </g>
   <g class="labels y-labels">
