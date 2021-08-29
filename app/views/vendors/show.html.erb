@@ -5,6 +5,8 @@
   <%= @vendor.name %>
 </p>
 
+<p><strong>Spent:</strong> <%= number_to_currency(@vendor.transactions.map(&:debit).compact.sum) %></p>
+
 <%= render 'transactions/transactions', transactions: @vendor.transactions %>
 
 <%= link_to 'Edit', edit_vendor_path(@vendor) %> |
