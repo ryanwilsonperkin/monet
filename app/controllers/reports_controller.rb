@@ -24,7 +24,8 @@ class ReportsController < ApplicationController
     @chart = Chart.new(
       "Monthly report",
       date_range,
-      @transactions.group(:date).sum(:debit).to_a
+      @transactions.group(:date).sum(:debit).to_a,
+      -> (date) { date.strftime("%d") },
     )
   end
 
@@ -39,7 +40,8 @@ class ReportsController < ApplicationController
     @chart = Chart.new(
       "Yearly report",
       date_range,
-      @transactions.group(:date).sum(:debit).to_a
+      @transactions.group(:date).sum(:debit).to_a,
+      -> (date) { date.strftime("%m-%d") },
     )
   end
 

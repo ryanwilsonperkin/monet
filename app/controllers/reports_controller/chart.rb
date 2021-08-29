@@ -26,7 +26,7 @@ class ReportsController
 
     attr_reader :title, :height, :width, :x_padding, :y_padding, :date_range, :points
 
-    def initialize(title, date_range, points)
+    def initialize(title, date_range, points, format_x_label)
       @title = title
       @height = 400
       @width = 800
@@ -34,6 +34,7 @@ class ReportsController
       @y_padding = 20
       @date_range = date_range
       @points = points.map { |x, y| Point.new(self, x, y) }
+      @format_x_label = format_x_label
     end
 
     def plot_height
@@ -73,7 +74,7 @@ class ReportsController
         Label.new(
           x_padding + x_step_size * date_range.find_index(date),
           height,
-          date,
+          @format_x_label.call(date),
         )
       end
     end
