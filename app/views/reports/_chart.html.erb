@@ -31,16 +31,16 @@
       ><%= number_to_currency(x * @max_daily_debit / 3) %></text>
     <% end %>
   </g>
-  <svg x="<%= @chart.padding %>" y="<%= @chart.padding %>" width="<%= @chart.plot_width %>" height="<%= @chart.plot_height %>">
+  <svg class="plot" x="<%= @chart.padding %>" y="<%= @chart.padding %>" width="<%= @chart.plot_width %>" height="<%= @chart.plot_height %>">
     <g class="data" data-setname="Our first data set">
-      <%= @daily_debits.each do |date, debit| %>
+      <%= @chart.points.each do |point| %>
         <circle
-          cx="<%= @chart.plot_width / @date_range.count * date.day %>"
-          cy="<%= @chart.plot_height - (@chart.plot_height / @max_daily_debit * debit) %>"
-          data-value="<%= number_to_currency(debit) %>"
+          cx="<%= @chart.plot_width / @date_range.count * point.date.day %>"
+          cy="<%= @chart.plot_height - (@chart.plot_height / @max_daily_debit * point.amount) %>"
+          data-value="<%= number_to_currency(point.amount) %>"
           r="4"
         >
-          <title><%= date %>: <%= number_to_currency(debit) %></title>
+          <title><%= point.date %>: <%= number_to_currency(point.amount) %></title>
         </circle>
       <% end %>
     </g>

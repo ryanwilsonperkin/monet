@@ -3,14 +3,16 @@ class ReportsController < ApplicationController
   rescue_from InvalidParam, with: :redirect_to_index
 
   class Chart
-    attr_reader :height, :width, :padding
+    attr_reader :height, :width, :padding, :points
 
     Line = Struct.new(:x1, :x2, :y1, :y2, :colour)
+    Point = Struct.new(:date, :amount)
 
-    def initialize
+    def initialize(points)
       @height = 500
       @width = 800
       @padding = 80
+      @points = points.map { |x, y| Point.new(x, y) }
     end
 
     def plot_height
@@ -51,7 +53,7 @@ class ReportsController < ApplicationController
       .order(date: :asc)
     @daily_debits = @transactions.group(:date).sum(:debit)
     @max_daily_debit = @daily_debits.values.max
-    @chart = Chart.new
+    @chart = Chart.new(@daily_debits.to_a)
   end
 
   private
