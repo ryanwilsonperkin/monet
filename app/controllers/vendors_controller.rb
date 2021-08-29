@@ -3,7 +3,7 @@ class VendorsController < ApplicationController
 
   # GET /vendors or /vendors.json
   def index
-    @vendors = Vendor.all
+    @vendors = Vendor.order(:name)
   end
 
   # GET /vendors/1 or /vendors/1.json
