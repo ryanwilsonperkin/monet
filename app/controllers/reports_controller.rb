@@ -71,7 +71,7 @@ class ReportsController < ApplicationController
     end
 
     def x_labels
-      date_range.step(8).map do |date|
+      date_range.step(3).map do |date|
         Label.new(
           x_padding + x_step_size * date.day,
           height,
