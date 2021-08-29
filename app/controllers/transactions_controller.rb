@@ -3,7 +3,8 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
-    @transactions = Transaction.all
+    @query = query
+    @transactions = Transaction.where("description like ?", "%#{query}%")
   end
 
   # GET /transactions/1 or /transactions/1.json
@@ -11,6 +12,10 @@ class TransactionsController < ApplicationController
   end
 
   private
+    def query
+      params[:query]
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction
       @transaction = Transaction.find(params[:id])

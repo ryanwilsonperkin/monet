@@ -3,7 +3,10 @@
 <h1>Transactions</h1>
 
 <%= form_with url: transactions_path, method: :get do |form| %>
-  <%= form.text_field :query %>
+  <%= form.label :query, "Filter transactions" %>
+  <%= form.text_field :query, value: @query %>
+  <%= form.submit "Filter" %>
+  <%= link_to "Clear", transactions_path %>
 <% end %>
 
 <%= render 'transactions', transactions: @transactions %>
