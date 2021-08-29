@@ -4,7 +4,9 @@ class TransactionsController < ApplicationController
   # GET /transactions or /transactions.json
   def index
     @query = query
-    @transactions = Transaction.where("description like ?", "%#{query}%")
+    @transactions = Transaction
+      .includes(:vendor)
+      .where("description like ?", "%#{query}%")
   end
 
   # GET /transactions/1 or /transactions/1.json
