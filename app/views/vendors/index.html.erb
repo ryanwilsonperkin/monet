@@ -16,7 +16,11 @@
         <td><%= vendor.name %></td>
         <td><%= link_to 'Show', vendor %></td>
         <td><%= link_to 'Edit', edit_vendor_path(vendor) %></td>
-        <td><%= link_to 'Destroy', vendor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= form_for vendor, method: :delete, html: { onsubmit: "return window.confirm('Are you sure?');" } do |form| %>
+            <%= form.submit 'Destroy' %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
