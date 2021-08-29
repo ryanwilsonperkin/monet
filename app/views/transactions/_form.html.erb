@@ -13,32 +13,38 @@
 
   <div class="field">
     <%= form.label :credit_card_statement_id %>
-    <%= form.text_field :credit_card_statement_id %>
+    <%= form.text_field :credit_card_statement_id, readonly: true, disabled: true %>
   </div>
 
   <div class="field">
     <%= form.label :date %>
-    <%= form.date_select :date %>
+    <%= form.date_select :date, readonly: true, disabled: true %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.text_field :description, readonly: true, disabled: true %>
   </div>
 
   <div class="field">
     <%= form.label :debit %>
-    <%= form.text_field :debit %>
+    <%= form.text_field :debit, readonly: true, disabled: true %>
   </div>
 
   <div class="field">
     <%= form.label :credit %>
-    <%= form.text_field :credit %>
+    <%= form.text_field :credit, readonly: true, disabled: true %>
   </div>
 
   <div class="field">
     <%= form.label :balance %>
-    <%= form.text_field :balance %>
+    <%= form.text_field :balance, readonly: true, disabled: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vendor_id %>
+    <%= form.collection_select :vendor_id, Vendor.order(:name), :id, :name, include_blank: true %>
+    <%= link_to "➕", new_vendor_path %>
   </div>
 
   <div class="actions">

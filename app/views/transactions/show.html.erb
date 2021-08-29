@@ -30,4 +30,13 @@
   <%= number_to_currency(@transaction.balance) %>
 </p>
 
+<p>
+  <strong>Vendor:</strong>
+  <% if @transaction.vendor %>
+    <%= link_to @transaction.vendor_name, @transaction.vendor %>
+  <% else %>
+    None
+  <% end %>
+</p>
+
 <%= link_to 'Back', transactions_path %>
