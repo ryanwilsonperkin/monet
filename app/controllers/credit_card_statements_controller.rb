@@ -48,6 +48,6 @@ class CreditCardStatementsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def credit_card_statement_params
       content_file = params.require(:credit_card_statement).require(:content_file)
-      { content: content_file.read }
+      { content: content_file.read.force_encoding("UTF-8") }
     end
 end
