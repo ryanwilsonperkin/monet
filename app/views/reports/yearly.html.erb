@@ -3,4 +3,5 @@
 <p><strong><%= @year %></strong></p>
 <p><strong>Spent: </strong><%= number_to_currency(@transactions.map(&:debit).compact.sum) %></p>
 
+<%= render @chart %>
 <%= render 'transactions/transactions', transactions: @transactions %>

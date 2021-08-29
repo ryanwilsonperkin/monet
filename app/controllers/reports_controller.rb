@@ -36,6 +36,11 @@ class ReportsController < ApplicationController
       .includes(:vendor)
       .where(date: date_range)
       .order(date: :asc)
+    @chart = Chart.new(
+      "Yearly report",
+      date_range,
+      @transactions.group(:date).sum(:debit).to_a
+    )
   end
 
   # GET /reports/vendors

@@ -69,11 +69,11 @@ class ReportsController
     end
 
     def x_labels
-      date_range.step(3).map do |date|
+      date_range.to_a.in_groups(5).map(&:first).map do |date|
         Label.new(
-          x_padding + x_step_size * date.day,
+          x_padding + x_step_size * date_range.find_index(date),
           height,
-          date.day,
+          date,
         )
       end
     end
