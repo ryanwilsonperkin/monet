@@ -30,6 +30,10 @@ class ReportsController < ApplicationController
       x = padding
       Line.new(x, x, plot_height + padding, padding, "black")
     end
+
+    def to_partial_path
+      'reports/chart'
+    end
   end
 
   # GET /
