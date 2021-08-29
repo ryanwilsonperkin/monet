@@ -2,6 +2,36 @@ class ReportsController < ApplicationController
   class InvalidParam < StandardError; end
   rescue_from InvalidParam, with: :redirect_to_index
 
+  class Chart
+    attr_reader :height, :width, :padding
+
+    Line = Struct.new(:x1, :x2, :y1, :y2, :colour)
+
+    def initialize
+      @height = 500
+      @width = 800
+      @padding = 80
+    end
+
+    def plot_height
+      height - 2 * @padding
+    end
+
+    def plot_width
+      width - 2 * @padding
+    end
+
+    def horizontal_line
+      y = plot_height + padding
+      Line.new(padding, width - padding, y, y, "black")
+    end
+
+    def vertical_line
+      x = padding
+      Line.new(x, x, plot_height + padding, padding, "black")
+    end
+  end
+
   # GET /
   def index
   end
@@ -10,9 +40,14 @@ class ReportsController < ApplicationController
   def monthly
     @year = year_param
     @month = month_param
+    @date_range = Date.parse("%04d-%02d-01" % [@year, @month]).all_month
     @transactions = Transaction
-      .where(date: Date.parse("%04d-%02d-01" % [@year, @month]).all_month)
-      .order(date: :desc)
+      .includes(:vendor)
+      .where(date: @date_range)
+      .order(date: :asc)
+    @daily_debits = @transactions.group(:date).sum(:debit)
+    @max_daily_debit = @daily_debits.values.max
+    @chart = Chart.new
   end
 
   private
