@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
 
     def initialize(title, date_range, points)
       @title = title
-      @height = 500
+      @height = 400
       @width = 800
       @x_padding = 80
       @y_padding = 20
