@@ -81,6 +81,8 @@ class ReportsController < ApplicationController
     end
 
     def y_labels
+      return [] if points.empty?
+
       [0, max/2, max].map do |amount|
         Label.new(
           x_padding,
