@@ -5,6 +5,7 @@ class ReportsController < ApplicationController
   # GET /
   def index
     @report_year_months = Transaction
+      .order(date: :desc)
       .distinct
       .pluck(:date)
       .map { |date| [date.year, date.month] }
