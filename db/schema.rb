@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_27_204736) do
+ActiveRecord::Schema.define(version: 2021_08_29_011401) do
 
   create_table "credit_card_statements", force: :cascade do |t|
     t.text "content", null: false
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 2021_08_27_204736) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["credit_card_statement_id"], name: "index_transactions_on_credit_card_statement_id"
+  end
+
+  create_table "vendors", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "transactions", "credit_card_statements"
