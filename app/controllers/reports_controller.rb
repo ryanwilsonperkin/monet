@@ -3,10 +3,24 @@ class ReportsController < ApplicationController
   rescue_from InvalidParam, with: :redirect_to_index
 
   class Chart
+    include ActionView::Helpers::NumberHelper
     attr_reader :height, :width, :x_padding, :y_padding, :date_range, :points
 
     Line = Struct.new(:x1, :x2, :y1, :y2, :colour)
-    Point = Struct.new(:date, :amount)
+    Label = Struct.new(:x, :y, :text)
+    Point = Struct.new(:chart, :date, :amount) do
+      def radius
+        4
+      end
+
+      def cx
+        chart.plot_width / chart.date_range.count * date.day
+      end
+
+      def cy
+        chart.plot_height - (chart.plot_height / chart.max * amount)
+      end
+    end
 
     def initialize(date_range, points)
       @height = 500
@@ -14,7 +28,7 @@ class ReportsController < ApplicationController
       @x_padding = 80
       @y_padding = 20
       @date_range = date_range
-      @points = points.map { |x, y| Point.new(x, y) }
+      @points = points.map { |x, y| Point.new(self, x, y) }
     end
 
     def plot_height
@@ -35,6 +49,26 @@ class ReportsController < ApplicationController
 
     def max
       points.map(&:amount).max
+    end
+
+    def x_labels
+      date_range.step(8).map do |date|
+        Label.new(
+          x_padding + (plot_width / date_range.count) * date.day,
+          height,
+          date.day,
+        )
+      end
+    end
+
+    def y_labels
+      [0, max/2, max].map do |amount|
+        Label.new(
+          x_padding - 10,
+          height - amount / max * plot_height - y_padding,
+          number_to_currency(amount),
+        )
+      end
     end
 
     def to_partial_path
