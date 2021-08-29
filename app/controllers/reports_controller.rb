@@ -28,6 +28,16 @@ class ReportsController < ApplicationController
     )
   end
 
+  # GET /reports/yearly
+  def yearly
+    @year = year_param
+    date_range = Date.parse("%04d-01-01" % @year).all_year
+    @transactions = Transaction
+      .includes(:vendor)
+      .where(date: date_range)
+      .order(date: :asc)
+  end
+
   # GET /reports/vendors
   def vendors
     @vendor_transaction_amounts = Transaction

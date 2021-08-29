@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :reports do
     get 'monthly', as: 'monthly_redirect', to: redirect { "reports/monthly/#{Date.current.year}/#{Date.current.month}" }
     get 'monthly/:year/:month', action: 'monthly', as: 'monthly'
+    get 'yearly/:year', action: 'yearly', as: 'yearly'
     get 'vendors', action: 'vendors', as: 'vendors'
   end
   resources :vendors

@@ -20,3 +20,10 @@
     <li><%= link_to "%04d-%02d" % [year, month], reports_monthly_path(year: year, month: month) %></li>
   <% end %>
 </ul>
+
+<h2>Yearly reports</h2>
+<ul>
+  <% @report_year_months.map(&:first).uniq.each do |year| %>
+    <li><%= link_to year, reports_yearly_path(year: year) %></li>
+  <% end %>
+</ul>
