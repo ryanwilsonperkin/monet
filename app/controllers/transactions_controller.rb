@@ -21,9 +21,10 @@ class TransactionsController < ApplicationController
 
   # PATCH/PUT /transactions/1 or /transactions/1.json
   def update
-    transaction_params = params.require(:transaction).permit(:vendor_id)
+    vendor_name = params.require(:transaction)[:vendor_name]
+    vendor = vendor_name.blank? ? nil : Vendor.find_or_create_by(name: vendor_name)
     respond_to do |format|
-      if @transaction.update(transaction_params)
+      if @transaction.update(vendor: vendor)
         format.html { redirect_to @transaction, notice: "Transaction was successfully updated." }
         format.json { render :show, status: :ok, location: @transaction }
       else

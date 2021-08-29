@@ -42,9 +42,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :vendor_id %>
-    <%= form.collection_select :vendor_id, vendors, :id, :name, include_blank: true %>
-    <%= link_to "➕", new_vendor_path %>
+    <%= form.label :vendor_name %>
+    <%= form.text_field :vendor_name, list: 'vendor_name' %>
+    <datalist id="vendor_name">
+      <% vendors.each do |vendor| %>
+        <option value="<%= vendor.name %>"></option>
+      <% end %>
+    </datalist>
   </div>
 
   <div class="actions">
