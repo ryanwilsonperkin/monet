@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_29_011401) do
+ActiveRecord::Schema.define(version: 2021_08_29_013027) do
 
   create_table "credit_card_statements", force: :cascade do |t|
     t.text "content", null: false
@@ -27,7 +27,9 @@ ActiveRecord::Schema.define(version: 2021_08_29_011401) do
     t.decimal "balance", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "vendor_id"
     t.index ["credit_card_statement_id"], name: "index_transactions_on_credit_card_statement_id"
+    t.index ["vendor_id"], name: "index_transactions_on_vendor_id"
   end
 
   create_table "vendors", force: :cascade do |t|
@@ -37,4 +39,5 @@ ActiveRecord::Schema.define(version: 2021_08_29_011401) do
   end
 
   add_foreign_key "transactions", "credit_card_statements"
+  add_foreign_key "transactions", "vendors"
 end
