@@ -18,7 +18,7 @@
     ></line>
   </g>
   <g class="labels x-labels">
-    <%= @date_range.each do |date| %>
+    <%= @chart.date_range.each do |date| %>
       <text x="<%= 75 + date.day * 20 %>" y="<%= @chart.height %>"><%= date.day %></text>
     <% end %>
   </g>
@@ -28,15 +28,15 @@
       <text
         x="0"
         y="<%= @chart.height - (x * @chart.plot_height / 3) - @chart.padding %>"
-      ><%= number_to_currency(x * @max_daily_debit / 3) %></text>
+      ><%= number_to_currency(x * @chart.max / 3) %></text>
     <% end %>
   </g>
   <svg class="plot" x="<%= @chart.padding %>" y="<%= @chart.padding %>" width="<%= @chart.plot_width %>" height="<%= @chart.plot_height %>">
     <g class="data" data-setname="Our first data set">
       <%= @chart.points.each do |point| %>
         <circle
-          cx="<%= @chart.plot_width / @date_range.count * point.date.day %>"
-          cy="<%= @chart.plot_height - (@chart.plot_height / @max_daily_debit * point.amount) %>"
+          cx="<%= @chart.plot_width / @chart.date_range.count * point.date.day %>"
+          cy="<%= @chart.plot_height - (@chart.plot_height / @chart.max * point.amount) %>"
           data-value="<%= number_to_currency(point.amount) %>"
           r="4"
         >

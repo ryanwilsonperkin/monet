@@ -3,15 +3,16 @@ class ReportsController < ApplicationController
   rescue_from InvalidParam, with: :redirect_to_index
 
   class Chart
-    attr_reader :height, :width, :padding, :points
+    attr_reader :height, :width, :padding, :date_range, :points
 
     Line = Struct.new(:x1, :x2, :y1, :y2, :colour)
     Point = Struct.new(:date, :amount)
 
-    def initialize(points)
+    def initialize(date_range, points)
       @height = 500
       @width = 800
       @padding = 80
+      @date_range = date_range
       @points = points.map { |x, y| Point.new(x, y) }
     end
 
@@ -33,6 +34,10 @@ class ReportsController < ApplicationController
       Line.new(x, x, plot_height + padding, padding, "black")
     end
 
+    def max
+      points.map(&:amount).max
+    end
+
     def to_partial_path
       'reports/chart'
     end
@@ -46,14 +51,14 @@ class ReportsController < ApplicationController
   def monthly
     @year = year_param
     @month = month_param
-    @date_range = Date.parse("%04d-%02d-01" % [@year, @month]).all_month
+    date_range = Date.parse("%04d-%02d-01" % [@year, @month]).all_month
     @transactions = Transaction
       .includes(:vendor)
-      .where(date: @date_range)
+      .where(date: date_range)
       .order(date: :asc)
-    @daily_debits = @transactions.group(:date).sum(:debit)
-    @max_daily_debit = @daily_debits.values.max
-    @chart = Chart.new(@daily_debits.to_a)
+    daily_debits = @transactions.group(:date).sum(:debit)
+    @max_daily_debit = daily_debits.values.max
+    @chart = Chart.new(date_range, daily_debits.to_a)
   end
 
   private
