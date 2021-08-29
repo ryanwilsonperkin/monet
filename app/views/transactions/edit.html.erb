@@ -1,6 +1,6 @@
 <h1>Editing Credit Card Statement</h1>
 
-<%= render 'form', transaction: @transaction %>
+<%= render 'form', transaction: @transaction, vendors: @vendors %>
 
 <%= link_to 'Show', @credit_card_statement %> |
 <%= link_to 'Back', credit_card_statements_path %>

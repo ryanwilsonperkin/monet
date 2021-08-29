@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update]
+  before_action :set_vendors, only: [:edit]
 
   # GET /transactions or /transactions.json
   def index
@@ -40,5 +41,9 @@ class TransactionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction
       @transaction = Transaction.find(params[:id])
+    end
+
+    def set_vendors
+      @vendors = Vendor.order(:name)
     end
 end
