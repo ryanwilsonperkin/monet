@@ -4,6 +4,11 @@ class ReportsController < ApplicationController
 
   # GET /
   def index
+    @report_year_months = Transaction
+      .distinct
+      .pluck(:date)
+      .map { |date| [date.year, date.month] }
+      .uniq
   end
 
   # GET /reports/monthly

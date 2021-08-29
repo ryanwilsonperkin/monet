@@ -6,6 +6,12 @@
     <li><%= link_to "Upload Credit Card Statement", new_credit_card_statement_path %></li>
     <li><%= link_to "Transactions", transactions_path %></li>
     <li><%= link_to "Vendors", vendors_path %></li>
-    <li><%= link_to "Monthly Report", reports_monthly_path %></li>
   </ul>
 </nav>
+
+<h2>Monthly reports:</h2>
+<ul>
+  <% @report_year_months.each do |year, month| %>
+    <li><%= link_to "%04d-%02d" % [year, month], reports_monthly_path(year: year, month: month) %></li>
+  <% end %>
+</ul>
