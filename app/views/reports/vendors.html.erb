@@ -1,0 +1,18 @@
+<h1>Vendors Report</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vendor</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vendor_transaction_amounts.each do |vendor, amount| %>
+      <tr>
+        <td><%= vendor.name %></td> 
+        <td><%= number_to_currency(amount) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

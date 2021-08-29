@@ -9,7 +9,12 @@
   </ul>
 </nav>
 
-<h2>Monthly reports:</h2>
+<h2>Reports</h2>
+<ul>
+  <li><%= link_to "Vendor Report", reports_vendors_path %></li>
+</ul>
+
+<h2>Monthly reports</h2>
 <ul>
   <% @report_year_months.each do |year, month| %>
     <li><%= link_to "%04d-%02d" % [year, month], reports_monthly_path(year: year, month: month) %></li>

@@ -28,6 +28,15 @@ class ReportsController < ApplicationController
     )
   end
 
+  # GET /reports/vendors
+  def vendors
+    @vendor_transaction_amounts = Transaction
+      .where.not(vendor_id: nil)
+      .group(:vendor)
+      .order(sum_debit: :desc)
+      .sum(:debit)
+  end
+
   private
 
   def month_param
