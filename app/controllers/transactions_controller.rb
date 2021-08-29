@@ -6,6 +6,7 @@ class TransactionsController < ApplicationController
     @query = query
     @transactions = Transaction
       .includes(:vendor)
+      .order(date: :desc)
       .where("description like ?", "%#{query}%")
   end
 

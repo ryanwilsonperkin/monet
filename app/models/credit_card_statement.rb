@@ -1,7 +1,7 @@
 require 'csv'
 
 class CreditCardStatement < ApplicationRecord
-  has_many :transactions, dependent: :destroy
+  has_many :transactions, -> { order(date: :desc) }, dependent: :destroy
   validates :content, presence: true
 
   after_create :create_transactions!
