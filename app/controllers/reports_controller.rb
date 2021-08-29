@@ -4,13 +4,19 @@ class ReportsController < ApplicationController
 
   class Chart
     include ActionView::Helpers::NumberHelper
-    attr_reader :height, :width, :x_padding, :y_padding, :date_range, :points
+    attr_reader :title, :height, :width, :x_padding, :y_padding, :date_range, :points
 
     Line = Struct.new(:x1, :x2, :y1, :y2, :colour)
     Label = Struct.new(:x, :y, :text)
     Point = Struct.new(:chart, :date, :amount) do
+      include ActionView::Helpers::NumberHelper
+
       def radius
         4
+      end
+
+      def title
+        "#{date}: #{number_to_currency(amount)}"
       end
 
       def cx
@@ -22,7 +28,8 @@ class ReportsController < ApplicationController
       end
     end
 
-    def initialize(date_range, points)
+    def initialize(title, date_range, points)
+      @title = title
       @height = 500
       @width = 800
       @x_padding = 80
@@ -91,7 +98,7 @@ class ReportsController < ApplicationController
       .order(date: :asc)
     daily_debits = @transactions.group(:date).sum(:debit)
     @max_daily_debit = daily_debits.values.max
-    @chart = Chart.new(date_range, daily_debits.to_a)
+    @chart = Chart.new("Monthly report", date_range, daily_debits.to_a)
   end
 
   private

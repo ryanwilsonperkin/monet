@@ -1,4 +1,14 @@
-<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="graph" aria-labelledby="title" role="img" height="<%= @chart.height %>" width="<%= @chart.width %>">
+<svg
+  version="1.2"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  class="chart"
+  aria-labelledby="title"
+  role="img"
+  height="<%= @chart.height %>"
+  width="<%= @chart.width %>"
+>
+  <title><%= @chart.title %></title>
   <g class="labels x-labels">
     <%= @chart.x_labels.each do |label| %>
       <text
@@ -20,8 +30,14 @@
       </text>
     <% end %>
   </g>
-  <svg class="plot" x="<%= @chart.x_padding %>" y="<%= @chart.y_padding %>" width="<%= @chart.plot_width %>" height="<%= @chart.plot_height %>">
-    <g class="grid x-grid" id="xGrid">
+  <svg 
+    class="plot"
+    x="<%= @chart.x_padding %>"
+    y="<%= @chart.y_padding %>"
+    width="<%= @chart.plot_width %>"
+    height="<%= @chart.plot_height %>"
+  >
+    <g class="grid x-grid">
       <line
         x1="<%= @chart.horizontal_line.x1 %>"
         x2="<%= @chart.horizontal_line.x2 %>"
@@ -30,7 +46,7 @@
         stroke="<%= @chart.horizontal_line.colour %>"
       ></line>
     </g>
-    <g class="grid y-grid" id="yGrid">
+    <g class="grid y-grid">
       <line
         x1="<%= @chart.vertical_line.x1 %>"
         x2="<%= @chart.vertical_line.x2 %>"
@@ -39,14 +55,14 @@
         stroke="<%= @chart.vertical_line.colour %>"
       ></line>
     </g>
-    <g class="data" data-setname="Our first data set">
+    <g class="data">
       <%= @chart.points.each do |point| %>
         <circle
           cx="<%= point.cx %>"
           cy="<%= point.cy %>"
           r="<%= point.radius %>"
         >
-          <title><%= point.date %>: <%= number_to_currency(point.amount) %></title>
+          <title><%= point.title %></title>
         </circle>
       <% end %>
     </g>
