@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root to: 'reports#index'
+  namespace :reports do
+  end
   resources :vendors
   resources :transactions, except: [:new, :create, :delete] do
     collection do
