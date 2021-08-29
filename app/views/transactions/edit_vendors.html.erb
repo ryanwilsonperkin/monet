@@ -1,0 +1,38 @@
+<h1>Editing Transaction Vendors</h1>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Count</th>
+      <th>Vendor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @descriptions.each do |description, count| %>
+      <tr>
+        <td><%= description %></td>
+        <td><%= count %></td>
+        <td>
+          <%= form_with url: update_vendors_transactions_path, method: :put do |form| %>
+            <%= form.hidden_field :description, value: description %>
+            <div class="field">
+              <%= form.text_field :vendor_name, list: :vendor_names, value: description.titleize %>
+              <%= form.submit "Save" %>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<datalist id="vendor_names">
+  <% @vendors.each do |vendor| %>
+    <option value="<%= vendor.name %>"></option>
+  <% end %>
+</datalist>
+
+<%= link_to 'Back', transactions_path %>

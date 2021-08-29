@@ -1,6 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update]
-  before_action :set_vendors, only: [:edit]
+  before_action :set_vendors, only: [:edit, :edit_vendors]
 
   # GET /transactions or /transactions.json
   def index
@@ -17,6 +17,31 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/1/edit
   def edit
+  end
+
+  # GET /transactions/edit_vendors
+  def edit_vendors
+    @descriptions = Transaction
+      .where(vendor_id: nil)
+      .group(:description)
+      .order(:description)
+      .count
+  end
+
+  # PATCH/PUT /transactions/update_vendors
+  def update_vendors
+    description = params.require(:description)
+    vendor_name = params.require(:vendor_name)
+    vendor = vendor_name.blank? ? nil : Vendor.find_or_create_by(name: vendor_name)
+    respond_to do |format|
+      if Transaction.where(description: description).update(vendor: vendor)
+        format.html { redirect_to edit_vendors_transactions_path, notice: "Transactions were successfully updated." }
+        format.json { render :show, status: :ok, location: @transaction }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /transactions/1 or /transactions/1.json
