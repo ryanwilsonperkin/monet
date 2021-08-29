@@ -40,19 +40,11 @@ class ReportsController < ApplicationController
   private
 
   def month_param
-    default = Time.zone.now.month
-    params[:month].to_i.tap do |month|
-      return default if month.zero?
-      raise InvalidParam unless (1..12).include? month
-    end
+    params.require(:month).to_i
   end
 
   def year_param
-    default = Time.zone.now.year
-    params[:year].to_i.tap do |year|
-      return default if year.zero?
-      raise InvalidParam unless (1000..3000).include? year
-    end
+    params.require(:year).to_i
   end
 
   def redirect_to_index
