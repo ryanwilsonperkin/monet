@@ -29,10 +29,6 @@
   </tbody>
 </table>
 
-<datalist id="vendor_names">
-  <% @vendors.each do |vendor| %>
-    <option value="<%= vendor.name %>"></option>
-  <% end %>
-</datalist>
+<%= render 'vendor_names_list' %>
 
 <%= link_to 'Back', transactions_path %>

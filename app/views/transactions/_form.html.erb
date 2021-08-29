@@ -43,15 +43,12 @@
 
   <div class="field">
     <%= form.label :vendor_name %>
-    <%= form.text_field :vendor_name, list: 'vendor_name' %>
-    <datalist id="vendor_name">
-      <% vendors.each do |vendor| %>
-        <option value="<%= vendor.name %>"></option>
-      <% end %>
-    </datalist>
+    <%= form.text_field :vendor_name, list: 'vendor_names' %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+<%= render 'vendor_names_list' %>
