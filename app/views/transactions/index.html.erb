@@ -2,6 +2,8 @@
 
 <h1>Transactions</h1>
 
+<%= link_to "Edit vendors", edit_vendors_transactions_path %>
+
 <%= form_with url: transactions_path, method: :get do |form| %>
   <%= form.label :query, "Filter transactions" %>
   <%= form.text_field :query, value: @query %>
