@@ -10,7 +10,7 @@
 >
   <title><%= @chart.title %></title>
   <g class="labels x-labels">
-    <%= @chart.x_labels.each do |label| %>
+    <% @chart.x_labels.each do |label| %>
       <text
         x="<%= label.x %>"
         y="<%= label.y %>"
@@ -20,7 +20,7 @@
     <% end %>
   </g>
   <g class="labels y-labels">
-    <%= @chart.y_labels.each do |label| %>
+    <% @chart.y_labels.each do |label| %>
       <text
         text-anchor="end"
         x="<%= label.x %>"
@@ -56,7 +56,7 @@
       ></line>
     </g>
     <g class="data">
-      <%= @chart.points.each do |point| %>
+      <% @chart.points.each do |point| %>
         <circle
           cx="<%= point.cx %>"
           cy="<%= point.cy %>"
