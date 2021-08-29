@@ -15,9 +15,11 @@ class ReportsController < ApplicationController
       .includes(:vendor)
       .where(date: date_range)
       .order(date: :asc)
-    daily_debits = @transactions.group(:date).sum(:debit)
-    @max_daily_debit = daily_debits.values.max
-    @chart = Chart.new("Monthly report", date_range, daily_debits.to_a)
+    @chart = Chart.new(
+      "Monthly report",
+      date_range,
+      @transactions.group(:date).sum(:debit).to_a
+    )
   end
 
   private
