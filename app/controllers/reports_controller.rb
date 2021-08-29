@@ -10,6 +10,9 @@ class ReportsController < ApplicationController
   def monthly
     @year = year_param
     @month = month_param
+    @transactions = Transaction
+      .where(date: Date.parse("%04d-%02d-01" % [@year, @month]).all_month)
+      .order(date: :desc)
   end
 
   private
