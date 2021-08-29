@@ -25,13 +25,11 @@ class ReportsController < ApplicationController
     end
 
     def horizontal_line
-      y = plot_height + padding
-      Line.new(padding, width - padding, y, y, "black")
+      Line.new(0, plot_width, plot_height, plot_height, "black")
     end
 
     def vertical_line
-      x = padding
-      Line.new(x, x, plot_height + padding, padding, "black")
+      Line.new(0, 0, 0, plot_height, "black")
     end
 
     def max
