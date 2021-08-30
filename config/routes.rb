@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :categories
   root to: 'reports#index'
   namespace :reports do
     root action: 'index'
