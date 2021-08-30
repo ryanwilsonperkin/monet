@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Category</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +15,11 @@
     <% @vendors.each do |vendor| %>
       <tr>
         <td><%= vendor.name %></td>
+        <td>
+          <% if vendor.category %>
+            <%= link_to vendor.category_name, vendor.category %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', vendor %></td>
         <td><%= link_to 'Edit', edit_vendor_path(vendor) %></td>
         <td>
