@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'reports#index'
   namespace :reports do
+    root action: 'index'
     get 'monthly', as: 'monthly_redirect', status: 302, to: redirect { "reports/monthly/#{Date.current.year}/#{Date.current.month}" }
     get 'monthly/:year/:month', action: 'monthly', as: 'monthly'
     get 'yearly', as: 'yearly_redirect', status: 302, to: redirect { "reports/yearly/#{Date.current.year}" }
