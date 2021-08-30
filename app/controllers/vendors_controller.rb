@@ -1,5 +1,6 @@
 class VendorsController < ApplicationController
   before_action :set_vendor, only: %i[ show edit update destroy ]
+  before_action :set_categories, only: [:edit]
 
   # GET /vendors or /vendors.json
   def index
@@ -64,6 +65,10 @@ class VendorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def vendor_params
-      params.require(:vendor).permit(:name)
+      params.require(:vendor).permit(:name, :category_id)
+    end
+
+    def set_categories
+      @categories = Category.order(:name)
     end
 end

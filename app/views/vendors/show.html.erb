@@ -10,7 +10,7 @@
 <p>
   <strong>Category:</strong>
   <% if @vendor.category %>
-    <% link_to @vendor.category_name, @vendor.category %>
+    <%= link_to @vendor.category_name, @vendor.category %>
   <% else %>
     None
   <% end %>
