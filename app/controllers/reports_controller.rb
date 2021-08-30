@@ -50,15 +50,9 @@ class ReportsController < ApplicationController
     @vendor_transactions = Transaction
       .where.not(vendor_id: nil)
       .where.not(debit: nil)
-      .joins(:vendor)
-      .group(:vendor_id)
-      .pluck(
-        Vendor.arel_table[:name],
-        Transaction.arel_table[:id].count,
-        Transaction.arel_table[:debit].sum,
-      )
-      .sort_by(&:last)
-      .reverse
+      .includes(:vendor)
+      .group_by(&:vendor)
+      .sort_by { |vendor, transactions| -transactions.sum(&:debit) }
   end
 
   private

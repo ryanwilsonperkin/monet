@@ -9,11 +9,11 @@
     </tr>
   </thead>
   <tbody>
-    <% @vendor_transactions.each do |vendor_name, transactions_count, transactions_total| %>
+    <% @vendor_transactions.each do |vendor, transactions| %>
       <tr>
-        <td><%= vendor_name %></td>
-        <td><%= transactions_count %></td>
-        <td><%= number_to_currency(transactions_total) %></td>
+        <td><%= vendor.name %></td>
+        <td><%= transactions.size %></td>
+        <td><%= number_to_currency(transactions.sum(&:debit)) %></td>
       </tr>
     <% end %>
   </tbody>
