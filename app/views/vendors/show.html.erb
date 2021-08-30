@@ -5,8 +5,6 @@
   <%= @vendor.name %>
 </p>
 
-<p><strong>Spent:</strong> <%= number_to_currency(@vendor.transactions.map(&:debit).compact.sum) %></p>
-
 <p>
   <strong>Category:</strong>
   <% if @vendor.category %>
@@ -15,6 +13,8 @@
     None
   <% end %>
 </p>
+
+<p><strong>Spent:</strong> <%= number_to_currency(@vendor.transactions.map(&:debit).compact.sum) %></p>
 
 <%= render 'transactions/transactions', transactions: @vendor.transactions %>
 
