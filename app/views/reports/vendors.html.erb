@@ -4,14 +4,16 @@
   <thead>
     <tr>
       <th>Vendor</th>
+      <th>Count</th>
       <th>Amount</th>
     </tr>
   </thead>
   <tbody>
-    <% @vendor_transaction_amounts.each do |vendor, amount| %>
+    <% @vendor_transactions.each do |vendor_name, transactions_count, transactions_total| %>
       <tr>
-        <td><%= vendor.name %></td> 
-        <td><%= number_to_currency(amount) %></td>
+        <td><%= vendor_name %></td>
+        <td><%= transactions_count %></td>
+        <td><%= number_to_currency(transactions_total) %></td>
       </tr>
     <% end %>
   </tbody>

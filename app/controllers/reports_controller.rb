@@ -47,11 +47,18 @@ class ReportsController < ApplicationController
 
   # GET /reports/vendors
   def vendors
-    @vendor_transaction_amounts = Transaction
+    @vendor_transactions = Transaction
       .where.not(vendor_id: nil)
-      .group(:vendor)
-      .order(sum_debit: :desc)
-      .sum(:debit)
+      .where.not(debit: nil)
+      .joins(:vendor)
+      .group(:vendor_id)
+      .pluck(
+        Vendor.arel_table[:name],
+        Transaction.arel_table[:id].count,
+        Transaction.arel_table[:debit].sum,
+      )
+      .sort_by(&:last)
+      .reverse
   end
 
   private
