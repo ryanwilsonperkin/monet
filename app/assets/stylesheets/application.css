@@ -14,6 +14,12 @@
  *= require_self
  */
 
+/* Table headers should be left-aligned by default */
+th {
+  text-align: left;
+}
+
+/* Table rows should alternate background colours to differentiate them */
 tr:nth-child(even) {
   backdrop-filter: brightness(95%);
 }
