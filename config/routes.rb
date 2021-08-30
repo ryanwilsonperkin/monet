@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'yearly', as: 'yearly_redirect', status: 302, to: redirect { "reports/yearly/#{Date.current.year}" }
     get 'yearly/:year', action: 'yearly', as: 'yearly'
     get 'vendors', action: 'vendors', as: 'vendors'
+    get 'categories', action: 'categories', as: 'categories'
   end
   resources :vendors
   resources :transactions, except: [:new, :create, :delete] do

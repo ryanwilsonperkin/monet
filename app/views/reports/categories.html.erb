@@ -1,0 +1,25 @@
+<h1>Categories Report</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th style="text-align:right">Transactions</th>
+      <th style="text-align:right">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @category_transactions.each do |category, transactions| %>
+      <tr>
+        <td>
+          <% if category %>
+            <%= link_to category.name, category %></td>
+          <% else %>
+            Uncategorized
+          <% end %>
+        <td style="text-align:right"><%= transactions.size %></td>
+        <td style="text-align:right"><%= number_to_currency(transactions.sum(&:debit)) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

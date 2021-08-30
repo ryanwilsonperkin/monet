@@ -55,6 +55,16 @@ class ReportsController < ApplicationController
       .sort_by { |vendor, transactions| -transactions.sum(&:debit) }
   end
 
+  # GET /reports/categories
+  def categories
+    @category_transactions = Transaction
+      .where.not(vendor_id: nil)
+      .where.not(debit: nil)
+      .includes(:vendor)
+      .group_by(&:vendor_category)
+      .sort_by { |category, transactions| -transactions.sum(&:debit) }
+  end
+
   private
 
   def month_param

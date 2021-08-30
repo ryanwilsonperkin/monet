@@ -5,6 +5,7 @@ class Transaction < ApplicationRecord
   before_create :auto_assign_vendor!
 
   delegate :name, to: :vendor, prefix: true, allow_nil: true
+  delegate :category, to: :vendor, prefix: true, allow_nil: true
 
   private
 
