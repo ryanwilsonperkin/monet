@@ -47,12 +47,30 @@ class ReportsController < ApplicationController
 
   # GET /reports/vendors
   def vendors
+    @sort_options = [
+      "Total High to Low",
+      "Total Low to High",
+      "Transactions High to Low",
+      "Transactions Low to High",
+    ]
+    @sort = @sort_options.include?(params[:sort]) ? params[:sort] : @sort_options.first
     @vendor_transactions = Transaction
       .where.not(vendor_id: nil)
       .where.not(debit: nil)
       .includes(:vendor)
       .group_by(&:vendor)
-      .sort_by { |vendor, transactions| -transactions.sum(&:debit) }
+      .sort_by do |vendor, transactions|
+        case @sort
+        when "Total High to Low"
+          -transactions.sum(&:debit)
+        when "Total Low to High"
+          transactions.sum(&:debit)
+        when "Transactions High to Low"
+          -transactions.count
+        when "Transactions Low to High"
+          transactions.count
+        end
+      end
   end
 
   # GET /reports/categories

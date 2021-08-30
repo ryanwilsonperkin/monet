@@ -1,5 +1,10 @@
 <h1>Vendors Report</h1>
 
+<%= form_with method: :get do |form| %>
+  <%= form.select :sort, @sort_options, selected: @sort %>
+  <%= form.submit "Sort" %>
+<% end %>
+
 <table>
   <thead>
     <tr>
