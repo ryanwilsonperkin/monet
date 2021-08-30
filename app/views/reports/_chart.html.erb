@@ -12,6 +12,7 @@
   <g class="labels x-labels">
     <% @chart.x_labels.each do |label| %>
       <text
+        text-anchor="middle"
         x="<%= label.x %>"
         y="<%= label.y %>"
       >
