@@ -17,7 +17,7 @@
         <td><%= vendor.name %></td>
         <td>
           <% if vendor.category %>
-            <%= link_to vendor.category_name, vendor.category %>
+            <%= link_to vendor.category.icon_name, vendor.category %>
           <% end %>
         </td>
         <td><%= link_to 'Show', vendor %></td>
