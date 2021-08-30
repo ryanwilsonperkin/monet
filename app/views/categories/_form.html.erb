@@ -16,6 +16,11 @@
     <%= form.text_field :name %>
   </div>
 
+  <div class="field">
+    <%= form.label :icon %>
+    <%= form.text_field :icon, maxlength: 5 %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
